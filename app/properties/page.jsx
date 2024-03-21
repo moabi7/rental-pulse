@@ -10,9 +10,11 @@ const PropertiesPage = () => {
         {
           properties.length === 0 ? 
           (<p>No properties found</p>) :
-          properties.map((property) => (
-            <PropertyCard key={property._id} property={property}/>
-          ))
+          properties.map((property) => {
+            // console.log("🚀 ~ properties.map ~ property:", property)
+            
+            return <PropertyCard key={property._id} property={property}/>
+          })
         }
       </div>
       </div>
