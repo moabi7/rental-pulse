@@ -19,10 +19,9 @@ const PropertyCard = ({property}) => {
             <Image
               src={`/images/properties/${property.images[0]}`}
               alt="Property Image"
-              height={400}
-              width={400}
-              sizes="100vw"
-              className="object-cover rounded-t-xl"
+              height={500}
+              width={500}
+              className="object-cover rounded-t-xl h-52 w-[100%]"
             />
             <div className="p-4">
               <div className="text-left md:text-center lg:text-left mb-6">
