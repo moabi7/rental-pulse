@@ -37,6 +37,6 @@ const PropertySchema = new Schema({
     is_featured: { type: Boolean, required: true, default: false},
 }, {timestamps: true});
 
-const Property = models.property || model('Property', PropertySchema);
+const Property = models.Property || model('Property', PropertySchema);
 
 export default Property;
