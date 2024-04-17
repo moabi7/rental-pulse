@@ -20,12 +20,10 @@ async function fetchProperties() {
 // Fetch single property
 async function fetchProperty(id) {
   try {
-    // handle the case where the domain is not available yet
     if (apiDomain === null) {
       return null;
     }
     const res = await fetch(`${apiDomain}/properties/${id}`);
-    console.log("RES", res)
     if (!res.ok) {
       throw new Error("Failed to fetch property");
     }
