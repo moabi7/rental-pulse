@@ -2,6 +2,7 @@
 'use client';
 import PropertyHeaderImage from '@/components/PropertyHeaderImage'; 
 import PropertyDetails from '@/components/PropertyDetails';
+import Spinner from '@/components/Spinner';
 import { useEffect, useState } from 'react';
 import { useParams } from'next/navigation';
 import { fetchProperty } from '@/utils/requests';
@@ -42,6 +43,7 @@ const Property = () => {
 
   return (
     <>
+      {loading && (<Spinner loading={loading}/>)}
       {!loading && property && (
         <>
           <PropertyHeaderImage image={property.images[0]}/>
