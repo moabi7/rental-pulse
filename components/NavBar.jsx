@@ -184,6 +184,7 @@ const NavBar = () => {
                 >
                   <Link
                     href="/profile"
+                    onClick={() => setIsProfileMenuOpen(false)}
                     className="block px-4 py-2 text-sm text-gray-700"
                     role="menuitem"
                     tabIndex="-1"
@@ -191,6 +192,7 @@ const NavBar = () => {
                     >Your Profile</Link>
                   <Link
                     href="properties/saved"
+                    onClick={() => setIsProfileMenuOpen(false)}
                     className="block px-4 py-2 text-sm text-gray-700"
                     role="menuitem"
                     tabIndex="-1"
@@ -198,6 +200,7 @@ const NavBar = () => {
                     >Saved Properties</Link>
                   <button
                     href="#"
+                    onClick={() => {setIsProfileMenuOpen(false); signOut();}}
                     className="block px-4 py-2 text-sm text-gray-700"
                     role="menuitem"
                     tabIndex="-1"
