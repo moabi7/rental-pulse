@@ -1,5 +1,6 @@
 import connectDb from "@/config/database";
 import Property from "@/models/Property";
+import { getSessionUser } from "@/utils/getSessionUser";
 
 // GET /api/properties
 export const GET = async (request) => {
@@ -16,6 +17,15 @@ export const GET = async (request) => {
 // POST /api/properties
 export const POST = async (request) => {
     try {
+        await connectDb();
+
+        const sessionUser = await getSessionUser();
+
+        if (!sessionUser || !sessionUser.userId) {
+            return new Response('User ID is required', {status: 401});
+        }
+
+        const { userId } = sessionUser;
         // get form data from the request object
         const formData = await request.formData();
 
@@ -36,7 +46,7 @@ export const POST = async (request) => {
             },
             beds: formData.get("beds"),
             baths: formData.get("baths"),
-            square_feet: formData.get("square_feet"),
+            square_meters: formData.get("square_meters"),
             amenities,
             rates: {
                 weekly: formData.get("rates.weekly"),
@@ -48,12 +58,15 @@ export const POST = async (request) => {
                 email: formData.get("seller_info.email"),
                 phone: formData.get("seller_info.phone")
             },
-            images
+            owner: userId,
+            // images
         };
 
-        console.log(propertyData);
+        const newProperty = new Property(propertyData);
+        await newProperty.save();
+        return Response.redirect(`${process.env.NEXTAUTH_URL}/properties/${newProperty._id}`);
 
-        return new Response(JSON.stringify({message: 'Success'}), {status: 201});
+        // return new Response(JSON.stringify({message: 'Success'}), {status: 200});
     } catch (error) {
         console.error(error);
         return new Response('Failed to add property', {status: 500});

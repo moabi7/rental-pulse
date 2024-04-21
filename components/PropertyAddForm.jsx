@@ -15,7 +15,7 @@ const PropertyAddForm = () => {
         },
         beds: '3',
         baths: '2',
-        square_feet: '1800',
+        square_meters: '1800',
         amenities: [],
         rates: {
             weekly: '',
@@ -231,17 +231,17 @@ const PropertyAddForm = () => {
         </div>
         <div className="w-full sm:w-1/3 pl-2">
             <label
-            htmlFor="square_feet"
+            htmlFor="square_meters"
             className="block text-gray-700 font-bold mb-2"
             >Square Feet</label
             >
             <input
             type="number"
-            id="square_feet"
-            name="square_feet"
+            id="square_meters"
+            name="square_meters"
             className="border rounded w-full py-2 px-3"
             required
-            value={fields.square_feet}
+            value={fields.square_meters}
             onChange={handleChange}
             />
         </div>
