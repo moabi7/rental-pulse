@@ -19,7 +19,7 @@ const PropertyAddForm = () => {
         amenities: [],
         rates: {
             weekly: '',
-            monthtly: '2000',
+            monthly: '2000',
             nightly: '',
         },
         seller_info: {
