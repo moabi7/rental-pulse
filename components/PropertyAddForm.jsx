@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 
 const PropertyAddForm = () => {
     const [mounted, setMounted] = useState(false);
-    const [fields, setField] = useState({
+    const [fields, setFields] = useState({
         type: "Apartment",
         name: "Test Property",
         description: "",
@@ -34,9 +34,68 @@ const PropertyAddForm = () => {
         setMounted(true);
     }, []);
 
-    const handleChange = () => {};
-    const handleAmenitiesChange = () => {};
-    const handleImageChange = () => {};
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        // Check for nested properties
+        if (name.includes('.')) {
+            const [outerKey, innerKey] = name.split('.');
+
+            setFields((prevFields) => ({
+               ...prevFields,
+                [outerKey]: {
+                   ...prevFields[outerKey],
+                    [innerKey]: value
+                }
+            }));
+        } else {
+            // Handle normal properties
+            setFields((prevFields) => ({
+               ...prevFields,
+                [name]: value
+            }));
+        }
+    };
+    const handleAmenitiesChange = (e) => {
+        const { value, checked } = e.target;
+
+        // Clone the current array
+        const updateAmenities = [...fields.amenities];
+
+        // Clone the current array
+        if (checked) {
+            updateAmenities.push(value);
+        } else {
+            // Remove value from array
+            const index = updateAmenities.indexOf(value);
+
+            if (index !== -1) {
+                updateAmenities.splice(index, 1);
+            }
+        }
+
+        // Update state with updated array
+        setFields((prevFields) => ({
+           ...prevFields,
+            amenities: updateAmenities
+        }));
+    };
+    const handleImageChange = (e) => {
+        const { files } = e.target;
+
+        // Clone images array
+        const updateImages = [...fields.images];
+
+        // Add new images
+        for (const file of files) {
+            updateImages.push(file);
+        }
+
+        // Update state with new images
+        setFields((prevFields) => ({
+           ...prevFields,
+            images: updateImages
+        }));
+    };
 
   return mounted &&
     <form>
