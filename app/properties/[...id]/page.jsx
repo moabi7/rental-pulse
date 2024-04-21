@@ -1,6 +1,7 @@
 
 'use client';
 import PropertyHeaderImage from '@/components/PropertyHeaderImage'; 
+import PropertyImages from '@/components/PropertyImages';
 import PropertyDetails from '@/components/PropertyDetails';
 import Spinner from '@/components/Spinner';
 import { useEffect, useState } from 'react';
@@ -150,6 +151,7 @@ const Property = () => {
         </div>
       </div>
     </section>
+    <PropertyImages images={property.images} />
         </>
       )}
     </>
