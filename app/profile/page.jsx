@@ -55,11 +55,11 @@ const ProfilePage = () => {
 
             alert('Property deleted successfully');
           } else {
-            alert('Failed to delete property 111');
+            alert('Failed to delete property');
           }
         } catch (error) {
           console.log(error);
-          alert('Failed to delete propertyv 222');
+          alert('Failed to delete property');
         }
       }
     };
