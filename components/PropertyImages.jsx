@@ -7,7 +7,7 @@ const PropertyImages = ({ images }) => {
                 images.length === 1?
                 (
                     <Image
-                    src={image[0]}
+                    src={images[0]}
                     alt=""
                     className="object-cover h-[400px] mx-auto rounded-xl"
                     width={1800}
