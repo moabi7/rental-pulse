@@ -26,7 +26,7 @@ const PropertySchema = new Schema({
         weekly: { type: Number},
         monthly: { type: Number},
     },
-    seller_infor: {
+    seller_info: {
         name: { type: String},
         email: { type: String},
         phone: { type: String},
