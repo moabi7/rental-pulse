@@ -61,14 +61,12 @@ export const PUT = async (request, { params }) => {
         const sessionUser = await getSessionUser();
 
         if (!sessionUser || !sessionUser.userId) {
-            console.log("User ID is required");
             return new Response('User ID is required', {status: 401});
         }
         const { id } = params;
         const { userId } = sessionUser;
         // get form data from the request object
         const formData = await request.formData();
-        console.log("Form Data => ", formData);
         // get all amenities
         const amenities = formData.getAll('amenities');
 
@@ -82,9 +80,6 @@ export const PUT = async (request, { params }) => {
 
         // Verify ownetership
         if (existingProperty.owner.toString() !== userId) {
-            // Log userId and existingProperty.owner.toString()
-            console.log(userId,' != ' ,existingProperty.owner.toString());
-            console.log("Unauthorized");
             return new Response(`Unauthorized`, { status: 401 });
         }
 

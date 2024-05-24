@@ -115,7 +115,7 @@ const PropertyEditForm = () => {
         e.preventDefault();
         try {
             const formData = new FormData(e.target)
-            const response = await fetch("/api/properties/" + id, {
+            const res = await fetch("/api/properties/" + id, {
                 method: "PUT",
                 body: formData,
             });
