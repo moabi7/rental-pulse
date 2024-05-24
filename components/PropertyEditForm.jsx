@@ -114,18 +114,22 @@ const PropertyEditForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch("/api/properties", {
+            const formData = new FormData(e.target)
+            const response = await fetch("/api/properties/" + id, {
                 method: "PUT",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(fields),
+                body: formData,
             });
-            const data = await response.json();
-                toast.success(data.message);
-                    router.push("/properties");
+
+            if (res.status === 200) {
+                router.push("/properties");
+            } else if (res.status  == 401 || res.status === 403 ) {
+                toast.error('Permission denied');
+            } else {
+                toast.error('Something went wrong');
+            }
         } catch (error) {
             console.log("Error updating property: ", error);
+            toast.error('Something went wrong');
         }
     }
 
