@@ -18,6 +18,7 @@ const PropertyMap = ({property}) => {
         height: '500px'
     });
     const [loading, setLoading] = useState(true);
+    const [geoCodeError, setGeoCodeError] = useState(false);
 
     // Set defaults for South Africa
     setDefaults({
@@ -29,24 +30,48 @@ const PropertyMap = ({property}) => {
 
     useEffect(() => {
         const fetchCoords = async () => {
-            const res = await fromAddress(`${property.location.street} ${property.location.city} ${property.location.state} ${property.location.zipcode}`);
-            const { lat, lng } = res.results[0].geometry.location;
-
-            // set longitude and latitude
-            setLat(lat);
-            setLng(lng);
-            setViewPort({
-               ...viewPort,
-                latitude: lat,
-                longitude: lng
-            });
-            setLoading(false);
+            try {
+                const res = await fromAddress(`${property.location.street} ${property.location.city} ${property.location.state} ${property.location.zipcode}`);
+                // Check for results
+                if (!res.results.length) {
+                    // No results found
+                    setGeoCodeError(true);
+                    setLoading(false);
+                    return;
+                }
+                const { lat, lng } = res.results[0].geometry.location;
+    
+                // set longitude and latitude
+                setLat(lat);
+                setLng(lng);
+                setViewPort({
+                   ...viewPort,
+                    latitude: lat,
+                    longitude: lng
+                });
+                setLoading(false);
+            } catch (error) {
+                console.log(error);
+                setGeoCodeError(true);
+                setLoading(false);
+            }
         }
         fetchCoords();
     }, []); 
 
     if (loading) {
         return <Spinner loading={loading} />
+    }
+
+    if (geoCodeError) {
+        return (
+            <div className="flex flex-col items-center justify-center">
+                {/* <Image src="/pin.png" width={100} height={100} /> */}
+                <h1 className="text-center text-xl font-bold mt-5">
+                    No location data found
+                </h1>
+            </div>
+        )
     }
 
     return !loading && (
