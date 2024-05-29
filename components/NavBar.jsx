@@ -181,7 +181,7 @@ const NavBar = () => {
                   tabIndex="-1"
                 >
                   <Link
-                    href="/profile"
+                    href={"/profile"}
                     onClick={() => setIsProfileMenuOpen(false)}
                     className="block px-4 py-2 text-sm text-gray-700"
                     role="menuitem"
@@ -189,7 +189,7 @@ const NavBar = () => {
                     id="user-menu-item-0"
                     >Your Profile</Link>
                   <Link
-                    href="properties/saved"
+                    href={"/properties/saved"}
                     onClick={() => setIsProfileMenuOpen(false)}
                     className="block px-4 py-2 text-sm text-gray-700"
                     role="menuitem"

@@ -1,5 +1,23 @@
 const apiDomain = process.env.NEXT_PUBLIC_API_DOMAIN || null;
 
+async function fetchBookmarks() {
+  try {
+    // handle the case where the domain is not available yet
+    if (apiDomain === null) {
+      return [];
+    }
+    const res = await fetch(`${apiDomain}/bookmarks`, { cache: "no-store"});
+    if (!res.ok) {
+      console.log("RES => ",res);
+      throw new Error("Failed to fetch bookmarks");
+    }
+    return res.json();
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
+};
+
 async function fetchProperties() {
   try {
     // handle the case where the domain is not available yet
@@ -34,4 +52,4 @@ async function fetchProperty(id) {
   } 
 }
 
-export { fetchProperties, fetchProperty };
+export { fetchProperties, fetchProperty, fetchBookmarks };
