@@ -4,7 +4,7 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import Map, { Marker } from'react-map-gl';
 import { setDefaults, fromAddress } from "react-geocode";
 import Spinner from "./Spinner";
-import Image from "next/image";
+// import Image from "next/image";
 // import pin from "@/assets/images/pin.png";
 
 const PropertyMap = ({property}) => {
