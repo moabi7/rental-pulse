@@ -1,4 +1,4 @@
-'use Client';
+'use client';
 import { useState } from "react";
 import { FaPaperPlane } from "react-icons/fa";
 import { toast } from "react-toastify";

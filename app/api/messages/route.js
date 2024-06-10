@@ -1,9 +1,30 @@
 import connectDb from "@/config/database";
 import Message from "@/models/Message";
-import Email from "next-auth/providers/email";
+
 import { getSessionUser } from "@/utils/getSessionUser";
 
 export const dynamic = 'force-dynamic';
+export const GET = async (request) => {
+    try {
+        await connectDb();
+
+        const sessionUser = await getSessionUser();
+        if (!sessionUser || !sessionUser.user) {
+            return new Response(JSON.stringify({message: 'You must be logged in to view messages'}), {status: 401});
+        }
+        
+        const { user } = sessionUser;
+        const messages = await Message.find({recipient: user.id})
+        .populate('sender','name')
+        .populate('property', 'title');
+
+        return new Response(JSON.stringify(messages), {status: 200})
+
+    } catch (error) {
+        console.log(error);
+        return new Response('Something went wrong!', { status: 500});
+    }
+}; 
 
 export const POST = async (request) => {
     try {
