@@ -2,10 +2,12 @@
 import { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import Link from "next/link";
+import { useGlobalContext } from '@/context/GlobalContext';
 
 const Message = ({message}) => {
   const [isRead, setIsRead] = useState(message.read);
   const [isDeleted, setIsDeleted] = useState(false);
+  const { setUnreadCount } = useGlobalContext();
   const handleReadClick = async () => {
     try {
       const res = await fetch(`/api/messages/${message._id}`, {
@@ -15,6 +17,9 @@ const Message = ({message}) => {
       if (res.status === 200) {
         const { read } = await res.json();
         setIsRead(read);
+        setUnreadCount((prevCount) => {
+          return read ? prevCount - 1 : prevCount + 1;
+        });
         if (read) toast.success('Marked as read');
         else toast.success('Marked as new');
       }
@@ -32,6 +37,7 @@ const Message = ({message}) => {
 
       if (res.status === 200) {
         setIsDeleted(true);
+        setUnreadCount((prevCount) => prevCount - 1);
         toast.success('Message deleted!');
       }
       
