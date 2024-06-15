@@ -15,8 +15,8 @@ export const GET = async (request) => {
         
         const { user } = sessionUser;
         const messages = await Message.find({recipient: user.id})
-        .populate('sender','name')
-        .populate('property', 'title');
+        .populate('sender','username')
+        .populate('property', 'name');
 
         return new Response(JSON.stringify(messages), {status: 200})
 
