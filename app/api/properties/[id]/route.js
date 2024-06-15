@@ -20,7 +20,6 @@ export const GET = async (request, { params}) => {
 // DELETE /api/properties/:id
 export const DELETE = async (request, { params}) => {
     try {
-        debugger;
         const propertyId = params.id;
 
         const sessionUser = await getSessionUser();
@@ -34,7 +33,6 @@ export const DELETE = async (request, { params}) => {
 
         await connectDb();
         const property = await Property.findById(propertyId);
-        console.log(property)
         if (!property) {
             return new Response('Property Not Found', {status: 404});
         }

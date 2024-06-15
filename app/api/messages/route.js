@@ -14,9 +14,16 @@ export const GET = async (request) => {
         }
         
         const { user } = sessionUser;
-        const messages = await Message.find({recipient: user.id})
+        const readMessages = await Message.find({recipient: user.id, read: true})
+        .sort({createdAt: -1}) // sort in ascending order
         .populate('sender','username')
         .populate('property', 'name');
+        const unReadMessages = await Message.find({recipient: user.id, read: false})
+        .sort({createdAt: -1}) // sort in ascending order
+        .populate('sender','username')
+        .populate('property', 'name');
+
+        const messages = [... unReadMessages, readMessages];
 
         return new Response(JSON.stringify(messages), {status: 200})
 
@@ -29,7 +36,6 @@ export const GET = async (request) => {
 export const POST = async (request) => {
     try {
         const {name, email, phone, message, recipient, property} = await request.json();
-        // console.log("Message => ", {name, email, phone, message, recipient, property});
 
         await connectDb();
         const sessionUser = await getSessionUser();
