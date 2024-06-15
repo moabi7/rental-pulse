@@ -23,7 +23,7 @@ export const GET = async (request) => {
         .populate('sender','username')
         .populate('property', 'name');
 
-        const messages = [... unReadMessages, readMessages];
+        const messages = [... unReadMessages, ...readMessages];
 
         return new Response(JSON.stringify(messages), {status: 200})
 

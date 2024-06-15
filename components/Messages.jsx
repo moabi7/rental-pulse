@@ -38,7 +38,7 @@ const Messages = () => {
 
         <div className="space-y-4">
             {loading ? <Spinner/> : (
-                messages.length === 0 ? (
+                messages.length == 0 ? (
                     <p>No new Messages</p>
                 ) : (
                     messages.map(message => <Message key={message._id} message={message}/>)                
