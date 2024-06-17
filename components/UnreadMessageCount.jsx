@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import {useGlobalContext} from '@/context/GlobalContext';
 
 const UnreadMessageCount = ({ session }) => {
-    const {unreadCount, setUnreadCount} = useGlobalContext(9);
+    const {unreadCount, setUnreadCount} = useGlobalContext();
 
     useEffect(() => {
         if (!session) return;
