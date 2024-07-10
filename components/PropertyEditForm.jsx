@@ -269,7 +269,7 @@ const PropertyEditForm = () => {
             <label
             htmlFor="square_meters"
             className="block text-gray-700 font-bold mb-2"
-            >Square Feet</label
+            >Square Meters</label
             >
             <input
             type="number"
